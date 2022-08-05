@@ -1,0 +1,155 @@
+$PREFIX: __csfd-blocker;
+
+.article-header-review-action {
+  padding-right: 16px !important;
+}
+
+.header-right-info {
+  padding-right: 20px !important;
+}
+
+#snippet--comments, #topPost {
+  visibility: hidden;
+}
+
+.#{$PREFIX}__hide-children {
+  padding-top: 36px;
+}
+
+.#{$PREFIX}__hide-children > * {
+  overflow: hidden;
+  will-change: max-height;
+  transition: max-height 0.6s ease-in-out;
+  max-height: 0px;
+}
+
+.#{$PREFIX}__blocked-header__container {
+  display: inline-block;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.#{$PREFIX}__blocked-header__button,
+.#{$PREFIX}__blocked-header__button:hover {
+  margin-left: 0.5em;
+  font-size: 0.7em !important;
+  line-height: 1.25 !important;
+  background-color: rgba(226, 224, 224, 0.2) !important;
+  border: 1px solid rgba(226, 224, 224, 0.4) !important;
+  border-radius: 0.875em !important;
+  color: rgb(123, 123, 123) !important;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.#{$PREFIX}__blocked-header__button::after {
+  content: "Show Post";
+  height: 0;
+  visibility: hidden;
+  overflow: hidden;
+  user-select: none;
+  pointer-events: none;
+  font-weight: var(--bold);
+
+  @media speech {
+    display: none;
+  }
+}
+
+.#{$PREFIX}__blocked-header__label {
+  font-size: 0.8em;
+  color: rgb(123, 123, 123);
+}
+
+.#{$PREFIX}__menu__container {
+  display: inline-block;
+  position: absolute;
+}
+
+.#{$PREFIX}__menu__button {
+  background-color: transparent !important;
+  border: transparent !important;
+  color: rgb(123, 123, 123) !important;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.#{$PREFIX}__menu__button--menu-item {
+  margin: 3px;
+}
+
+.#{$PREFIX}__menu__button--menu-item:hover,
+.#{$PREFIX}__menu__button--menu-item:active {
+  background-color: rgb(247, 247, 247) !important;
+}
+
+.#{$PREFIX}__menu__button-icon {
+  width: 1.2em;
+  color: rgba(123, 123, 123, 0.75);
+}
+
+.#{$PREFIX}__menu__menu {
+  background-color: rgb(255, 255, 255);
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1) /* <- tailwindcss shadow-md */,
+    0 0 0 0.3px rgb(0 0 0 / 0.3);
+  position: absolute;
+  right: 0;
+  top: 22px;
+  margin-right: 2px;
+  animation: scaleUp 0.2s ease-in-out forwards;
+  transform-origin: top center;
+  display: none;
+}
+
+.#{$PREFIX}__menu__menu--active {
+  display: block;
+}
+
+.#{$PREFIX}__menu__arrow {
+  width: 0.8rem;
+  height: 0.5rem;
+  transform: translateY(-100%);
+  position: absolute;
+  right: 6px;
+  overflow: hidden;
+}
+
+.#{$PREFIX}__menu__arrow::before {
+  display: block;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 0 0.3px rgb(0 0 0 / 0.3);
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  transform: translateX(-50%) rotate(45deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.#{$PREFIX}__menu__label {
+  padding-left: 0.5em;
+  text-transform: none;
+  padding-top: 0.25em;
+  padding-bottom: 0.275em;
+  padding-right: 0.125em;
+}
+
+.#{$PREFIX}__menu__label > strong {
+  font-weight: 700;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
