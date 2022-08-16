@@ -4,7 +4,11 @@ $PREFIX: __csfd-blocker;
   padding-right: 16px !important;
 }
 
-#snippet--comments {
+.header-right-info {
+  padding-right: 16px !important;
+}
+
+#snippet--comments, #topPost {
   visibility: hidden;
 }
 
