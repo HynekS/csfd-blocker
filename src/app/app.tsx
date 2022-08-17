@@ -1,7 +1,8 @@
 import { h } from "preact";
-import { useState, useEffect, useRef } from "preact/hooks";
+import { useEffect, useRef } from "preact/hooks";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+import { createGlobalState } from "react-hooks-global-state";
 
 import { getChromeStorageValue } from "../utils/storage";
 import "./app.css";
@@ -14,6 +15,26 @@ type Entries<T> = { [K in keyof T]: [K, T[K]] }[keyof T];
 function ObjectEntries<T extends object>(t: T): Entries<T>[] {
   return Object.entries(t) as any;
 }
+
+const listener = async () => {
+  const { blocklist = {} } = await getChromeStorageValue<{
+    blocklist: IBlocklist;
+  }>(["blocklist"]);
+  setGlobalState("blocklist", blocklist);
+};
+
+const initialState = {
+  blocklist: {},
+};
+const { useGlobalState, setGlobalState } = createGlobalState(initialState);
+
+(async () => {
+  getChromeStorageValue<{
+    blocklist: IBlocklist;
+  }>(["blocklist"]).then(({ blocklist = {} }) =>
+    setGlobalState("blocklist", blocklist)
+  );
+})();
 
 type Unit = keyof typeof units;
 
@@ -105,34 +126,18 @@ const BlockList = ({ blocklist = {} }) => {
   );
 };
 
-// NOTE: the storage updates could be done in service worker altogether (gain: single source of truth)
 const App = () => {
-  const [blocklist, setBlocklist] = useState({});
-  const inputRef = useRef<HTMLInputElement>(null);
-
   useEffect(() => {
-    const listener = async () => {
-      const { blocklist = {} } = await getChromeStorageValue<{
-        blocklist: IBlocklist;
-      }>(["blocklist"]);
-
-      setBlocklist(blocklist);
-    };
     chrome.storage.onChanged.addListener(listener);
+
     return () => {
       chrome.storage.onChanged.removeListener(listener);
     };
   }, []);
 
-  useEffect(() => {
-    const getChromeStorageData = async () => {
-      const { blocklist = {} } = await getChromeStorageValue<{
-        blocklist: IBlocklist;
-      }>(["blocklist"]);
-      setBlocklist(blocklist);
-    };
-    getChromeStorageData();
-  }, []);
+  const [blocklist, _] = useGlobalState("blocklist");
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
