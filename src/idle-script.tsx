@@ -1,4 +1,5 @@
 import { h, render, Fragment, cloneElement, VNode, toChildArray } from "preact";
+
 import { useState, useRef, useEffect } from "preact/hooks";
 import { createGlobalState } from "react-hooks-global-state";
 import Toastify from "toastify-js";
@@ -277,11 +278,12 @@ async function main() {
       renderToContainingNode(node);
     });
   });
-  // TODO do in a loop, avoid non-null asserts
-  if (document.getElementById("snippet--comments") instanceof HTMLElement)
-    document.getElementById("snippet--comments")!.style.visibility = "visible";
-  if (document.getElementById("topPost") instanceof HTMLElement)
-    document.getElementById("topPost")!.style.visibility = "visible";
+  ["#snippet--comments", "#topPost"].forEach((selector) => {
+    let selected = Array.from(document.querySelectorAll(selector));
+    selected.forEach((element) => {
+      (element as HTMLElement).style.visibility = "visible";
+    });
+  });
 }
 
 main();
