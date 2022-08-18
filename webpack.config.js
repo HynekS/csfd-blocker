@@ -7,7 +7,7 @@ module.exports = {
   entry: {
     popup: "./src/popup.tsx",
     background: "./src/background.ts",
-    "idle-script": "./src/idle-script.tsx",
+    "idle-script": "./src/idle-script/index.tsx",
     "start-script": "./src/start-script.ts",
     "injected-styles": "./src/injected-styles.scss",
   },

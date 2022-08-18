@@ -1,10 +1,9 @@
 import { h } from "preact";
-import { useEffect, useRef } from "preact/hooks";
+import { useRef } from "preact/hooks";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
-import { createGlobalState } from "react-hooks-global-state";
 
-import { getChromeStorageValue } from "../utils/storage";
+import { useGlobalState } from "../state";
 import "./app.css";
 
 import type { IBlocklist, IResponse } from "../types";
@@ -15,26 +14,6 @@ type Entries<T> = { [K in keyof T]: [K, T[K]] }[keyof T];
 function ObjectEntries<T extends object>(t: T): Entries<T>[] {
   return Object.entries(t) as any;
 }
-
-const listener = async () => {
-  const { blocklist = {} } = await getChromeStorageValue<{
-    blocklist: IBlocklist;
-  }>(["blocklist"]);
-  setGlobalState("blocklist", blocklist);
-};
-
-const initialState = {
-  blocklist: {},
-};
-const { useGlobalState, setGlobalState } = createGlobalState(initialState);
-
-(async () => {
-  getChromeStorageValue<{
-    blocklist: IBlocklist;
-  }>(["blocklist"]).then(({ blocklist = {} }) =>
-    setGlobalState("blocklist", blocklist)
-  );
-})();
 
 type Unit = keyof typeof units;
 
@@ -127,14 +106,6 @@ const BlockList = ({ blocklist = {} }) => {
 };
 
 const App = () => {
-  useEffect(() => {
-    chrome.storage.onChanged.addListener(listener);
-
-    return () => {
-      chrome.storage.onChanged.removeListener(listener);
-    };
-  }, []);
-
   const [blocklist, _] = useGlobalState("blocklist");
 
   const inputRef = useRef<HTMLInputElement>(null);
