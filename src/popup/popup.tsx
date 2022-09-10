@@ -4,7 +4,7 @@ import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 
 import { useGlobalState } from "../state";
-import "./app.css";
+import "./popup.css";
 
 import type { IBlocklist, IResponse } from "../types";
 
@@ -105,7 +105,7 @@ const BlockList = ({ blocklist = {} }) => {
   );
 };
 
-const App = () => {
+const Popup = () => {
   const [blocklist, _] = useGlobalState("blocklist");
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -160,4 +160,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Popup;

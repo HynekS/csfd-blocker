@@ -1,4 +1,4 @@
-import { h, render } from 'preact';
-import App from './app/app';
+import { h, render } from "preact";
+import Popup from "./popup/popup";
 
-render(<App />, document.body);
+render(<Popup />, document.body);
