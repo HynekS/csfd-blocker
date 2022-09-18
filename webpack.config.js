@@ -1,6 +1,7 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
 const CopyPlugin = require("copy-webpack-plugin");
+const ZipPlugin = require("zip-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -77,7 +78,15 @@ module.exports = {
           from: __dirname + "/src/popup.html",
           to: __dirname + "/dist/popup.html",
         },
+        {
+          from: __dirname + "/src/icons",
+          to: __dirname + "/dist",
+        },
       ],
+    }),
+    new ZipPlugin({
+      filename: `csfd-blocker-${+new Date()}`,
+      exclude: [/\.map$/],
     }),
   ],
   devtool: "source-map",
