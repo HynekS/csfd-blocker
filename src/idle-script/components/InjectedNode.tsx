@@ -33,6 +33,10 @@ export default function InjectedNode({
               Toastify({
                 text: response.message,
                 duration: 2000,
+                style: {
+                  background: "linear-gradient(to right, #ED9699, #C02126)",
+                  fontWeight: "600",
+                },
               }).showToast();
             }
           );
