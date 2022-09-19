@@ -5,12 +5,20 @@ import "toastify-js/src/toastify.css";
 import DOMUpdater from "./components/DOMUpdater";
 import InjectedNode from "./components/InjectedNode";
 
-const targets = [
-  "article[id^='review']",
-  "article[id^='highlight-post-']:not(.deleted)",
-];
+import type { ITarget } from "../types";
 
-const renderToContainingNode = (element: Element) => {
+const targets = [
+  {
+    selector: "article[id^='review']",
+    tag: "review",
+  },
+  {
+    selector: "article[id^='highlight-post-']:not(.deleted)",
+    tag: "comment",
+  },
+] as const;
+
+const renderToContainingNode = (element: Element, context: ITarget) => {
   const containerElement = document.createElement("div");
 
   const userName =
@@ -18,15 +26,15 @@ const renderToContainingNode = (element: Element) => {
 
   element.append(containerElement);
   render(
-    <InjectedNode element={element} userName={userName} />,
+    <InjectedNode element={element} userName={userName} context={context} />,
     containerElement
   );
 };
 
 async function main() {
   targets.forEach((target) => {
-    document.querySelectorAll(target).forEach((node) => {
-      renderToContainingNode(node);
+    document.querySelectorAll(target.selector).forEach((node) => {
+      renderToContainingNode(node, target);
     });
   });
   const containerFragment = document.createDocumentFragment();

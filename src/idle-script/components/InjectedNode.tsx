@@ -2,19 +2,27 @@ import { h, Fragment } from "preact";
 import Toastify from "toastify-js";
 import { PREFIX } from "../../constants";
 
-import { IResponse } from "../../types";
 import { useGlobalState } from "../../state";
 import BanIcon from "./BanIcon";
 import Blocked from "./Blocked";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 
+import type { IResponse, ITarget } from "../../types";
+
+const positions = {
+  review: { top: "12px", right: "0" },
+  comment: { top: "17px", right: "0" },
+};
+
 export default function InjectedNode({
   element,
   userName,
+  context,
 }: {
   element: Element;
   userName: string;
+  context: ITarget;
 }) {
   const [blocklist, _] = useGlobalState("blocklist");
 
@@ -24,7 +32,9 @@ export default function InjectedNode({
   return isBlocklisted(userName) ? (
     <Blocked element={element} userName={userName} />
   ) : (
-    <Menu style={{ top: "12px", right: 0 }}>
+    <Menu
+      style={{ ...(positions[context.tag as keyof typeof positions] || {}) }}
+    >
       <MenuItem
         onClick={() => {
           chrome.runtime.sendMessage(
