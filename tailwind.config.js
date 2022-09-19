@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const scrollbarPlugin = require("tailwind-scrollbar");
+
 module.exports = {
   content: ["./src/**/*.{html,js,jsx,tsx}"],
   theme: {
@@ -8,8 +10,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwind-scrollbar")],
-  variants: {
-    scrollbar: ["rounded"],
-  },
+  plugins: [scrollbarPlugin({ nocompatible: true })],
 };
