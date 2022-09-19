@@ -17,8 +17,6 @@ export default function Updater() {
       }
     });
 
-    console.log("blocklist has changed!");
-
     return () => {};
   }, [JSON.stringify(blocklist)]);
   return null;
