@@ -39,10 +39,10 @@ export default function Blocked({
   useEffect(() => {
     element.classList.add(`${PREFIX}__hide-children`);
     hideChildren(element);
-    element.addEventListener("transitionend", (e) => {
-      // TODO implement
-      //console.log("end transition! ", e)
-    });
+    // TODO implement
+    //element.addEventListener("transitionend", (e) => {
+    //
+    //});
 
     return () => {
       element.classList.remove(`${PREFIX}__hide-children`);
