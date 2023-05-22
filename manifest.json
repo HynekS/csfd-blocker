@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "CSFD Blocker",
-  "description": "To enable blocking of offensive, boring or distasteful users on csfd.cz. They s*ck? You block!",
+  "description": "Avoid annoying users with a click of a button. Make csfd.cz a better place for yourself!",
   "version": "0.0.1",
   "action": {
     "default_icon": "icon-simplified-16.png",
