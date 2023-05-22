@@ -16,8 +16,6 @@ export default function Updater() {
         (node as HTMLElement).style.removeProperty("display");
       }
     });
-
-    return () => {};
   }, [JSON.stringify(blocklist)]);
   return null;
 }
