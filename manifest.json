@@ -29,7 +29,7 @@
       "resources": ["injected-styles.css"]
     }
   ],
-  "permissions": ["storage", "tabs", "scripting"],
+  "permissions": ["storage"],
   "host_permissions": ["*://*.csfd.cz/*"],
   "icons": {
     "16": "icon-simplified-16.png",
